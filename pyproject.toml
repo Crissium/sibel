@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sibel"
+version = "0.1.0"
+authors = [
+  { name="Yi Xing", email="blandilyte@gmail.com" },
+]
+description = "Python spellchecker with Hunspell as back-end"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: C++",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Crissium/sibel"
