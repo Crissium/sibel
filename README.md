@@ -12,14 +12,22 @@ Apart from these methods, Sibel also provides an additional one, `orthographic_f
 
 - Sibel is not wedded to Hunspell. It might switch to other back-ends.
 - PyHunspell is no longer actively maintained, and uses deprecated APIs.
-- Sibel's methods return the natural type, instead of raw bytes.
+- Sibel's methods return the natural types, instead of raw bytes.
 - Sibel releases the GIL when appropriate.
 - Sibel has an additional method, which requires libicu.
-- Sibel does not wrap all APIs of Hunspell.
+- Sibel does not expose all APIs of Hunspell.
 
 # Installation
 
-At the moment, this project hasn't been uploaded to PyPI yet. You could build and install it manually with `setuptools`.
+```bash
+pip install sibel
+```
+
+On devices with limited memory, the compilation might fail due to the very large map defined in [substitutions.cc](/src/substitutions.cc). If this happens, the only way to use Sibel is manual compilation. First comment out the languages you don't use (by prepending `//` to irrelevant lines), then run the following:
+```bash
+python setup.py build
+python setup.py install
+```
 
 # Usage
 
