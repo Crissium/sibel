@@ -35,5 +35,8 @@ setup(
 			extra_compile_args=['-std=c++17']
 		)
 	],
-	package_data={'sibel': ['py.typed', 'sibel.pyi']}
+	package_dir={'sibel': 'sibel'},
+	package_data={
+		'sibel': ['*.pyi', 'py.typed'],
+	}
 )
