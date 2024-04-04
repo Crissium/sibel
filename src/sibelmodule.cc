@@ -189,7 +189,7 @@ static PyObject * Speller_orthographic_forms(Speller * self, PyObject * args)
 
 	if (substitution_table::is_substitutable(word))
 	{
-		if (self->sub_table)
+		if (self->sub_table && word.size() <= substitution_table::SUBSTITUTION_MAX_LENGTH)
 		{
 			for (const std::string & possible_form : self->sub_table->substitute(word))
 			{

@@ -14,6 +14,7 @@ private:
 public:
 	substitution_table(const std::unordered_map<std::string, std::vector<std::string>> &&table_letters, const std::unordered_map<std::string, std::vector<std::string>> &&table_ligatures);
 	static bool is_substitutable(const std::string &s);
+	static const std::string::size_type SUBSTITUTION_MAX_LENGTH;
 	std::vector<std::string> substitute(const std::string &original) const;
 };
 

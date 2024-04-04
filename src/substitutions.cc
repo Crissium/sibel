@@ -424,6 +424,24 @@ bool substitution_table::is_substitutable(const std::string &s)
 						{ return std::isspace(c); });
 }
 
+/**
+ * The value is determined thus:
+ * Let's say on average a letter has two possible substitutions.
+ * Then the number of possible substitutions for a string of length n is 2^n.
+ * If n is too large, then the time spent in checking all the substitutions might exceed
+ * the time obtaining the suggestions from Hunspell.
+ * Also if there are too many threads, then we might get an exception
+ * (std::system_error Resource temporarily unavailable).
+ * 
+ * Then I run some simple empirical tests and decided that 8 would guarantee performance
+ * in most cases while also not causing exceptions. (On my system an exception is thrown
+ * when the number of threads exceeds ~1000. If the user loads three dictionaries with
+ * substitution tables, then the number of threads would be 3 * 2^8 = 768. On the other
+ * hand, if only one is loaded, we are wasting resources... but it's better to be safe
+ * than sorry, right?)
+ */
+const std::size_t substitution_table::SUBSTITUTION_MAX_LENGTH = 8;
+
 void substitution_table::generate_substitutions(const std::unordered_map<std::string, std::vector<std::string>> &map, const std::string &input, std::vector<std::string> &result, std::string::size_type index, std::string current, std::string::size_type len_of_key)
 {
 	if (index == input.size())
