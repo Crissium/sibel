@@ -174,78 +174,7 @@ static PyObject * Speller_stem(Speller * self, PyObject * args)
 
 static PyObject * Speller_orthographic_forms(Speller * self, PyObject * args)
 {
-	const char * buf_word;
-	if (!PyArg_ParseTuple(args, "s", &buf_word))
-	{
-		return nullptr;
-	}
-
-	const std::string word(buf_word);
-	std::vector<std::string> forms;
-
-	Py_BEGIN_ALLOW_THREADS
-	std::vector<std::thread> threads;
-	std::mutex mtx;
-
-	if (substitution_table::is_substitutable(word))
-	{
-		if (self->sub_table && word.size() <= substitution_table::SUBSTITUTION_MAX_LENGTH)
-		{
-			for (const std::string & possible_form : self->sub_table->substitute(word))
-			{
-				threads.push_back(std::thread([&](const std::string & form)
-				{
-					if (self->hunspell->spell(form))
-					{
-						std::lock_guard<std::mutex> lock(mtx);
-						forms.push_back(form);
-					}
-				}, possible_form));
-			}
-
-			for (std::thread & t : threads)
-			{
-				t.join();
-			}
-		}
-		else
-		{
-			std::string word_simplified(simplify(word));
-			
-			for (const std::string & suggestion : self->hunspell->suggest(word))
-			{
-				threads.push_back(std::thread([&](const std::string & s)
-				{
-					if (is_without_banned_chars(s) && simplify(s) == word_simplified)
-					{
-						std::lock_guard<std::mutex> lock(mtx);
-						forms.push_back(s);
-					}
-				}, suggestion));
-			}
-
-			for (std::thread & t : threads)
-			{
-				t.join();
-			}
-		}
-	}
-	else
-	{
-		if (self->hunspell->spell(word))
-		{
-			forms.push_back(word);
-		}
-	}
-	Py_END_ALLOW_THREADS
-
-	PyObject * forms_list = PyList_New(forms.size());
-	for (std::size_t i = 0; i < forms.size(); ++i)
-	{
-		PyList_SetItem(forms_list, i, PyUnicode_FromString(forms[i].c_str()));
-	}
-
-	return forms_list;
+	return nullptr;
 }
 
 static PyMethodDef Speller_methods[] = {

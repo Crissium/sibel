@@ -19,6 +19,3 @@ public:
 };
 
 extern const std::unordered_map<std::string, substitution_table> SUBSTITUTION_TABLES;
-
-std::string simplify(const std::string &s);
-bool is_without_banned_chars(const std::string &s);

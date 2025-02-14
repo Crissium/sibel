@@ -28,7 +28,7 @@ setup(
 	ext_modules=[
 		Extension(
 			'sibel',
-			['src/substitutions.cc', 'src/simplification.cc', 'src/sibelmodule.cc'],
+			['src/substitutions.cc', 'src/sibelmodule.cc', 'src/hunspell/affixmgr.cxx', 'src/hunspell/phonet.cxx', 'src/hunspell/affentry.cxx', 'src/hunspell/replist.cxx', 'src/hunspell/hashmgr.cxx', 'src/hunspell/csutil.cxx', 'src/hunspell/suggestmgr.cxx', 'src/hunspell/hunspell.cxx', 'src/hunspell/hunzip.cxx', 'src/hunspell/filemgr.cxx'],
 			include_dirs=include_dirs,
 			library_dirs=library_dirs,
 			libraries=libraries,
