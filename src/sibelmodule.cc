@@ -1,11 +1,12 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <filesystem>
-#include <hunspell/hunspell.hxx>
+//#include <hunspell/hunspell.hxx>
 #include <mutex>
 #include <thread>
 
 #include "sibel.h"
+#include "hunspell/hunspell.hxx"
 
 static PyObject * DictionaryLoadingError; // Note that Hunspell itself does not throw exceptions.
 
